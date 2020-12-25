@@ -2,6 +2,9 @@ import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 // To finish our application, we need to create a single Java file.
 // By default, Maven compiles sources from src/main/java/Application.java,
 // so you need to create that directory structure and then add a file named
@@ -18,11 +21,14 @@ import org.springframework.web.bind.annotation.*;
 @EnableAutoConfiguration
 public class Application {
 
+    Logger logger = LogManager.getLogger("Application");
+
     // The @RequestMapping annotation provides "routing" information. It tells Spring that any HTTP request 
     // with the `/` path should be mapped to the `home` method. The @RestController annotation tells Spring 
     // to render the resulting string directly back to the caller.
     @RequestMapping("/")
     String home() {
+        logger.info("Hello World!");
         return "Hello World!";
     }
 
