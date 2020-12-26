@@ -1,3 +1,5 @@
+package hello;
+
 import org.springframework.boot.*;
 import org.springframework.web.bind.annotation.*;
 import lombok.extern.log4j.Log4j2;

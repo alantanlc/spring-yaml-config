@@ -1,6 +1,34 @@
+spring:
+    config:
+        activate:
+            on-profile: test
+name: test-YAML
+environment: testing
+enabled: false
+servers:
+    - www.abc.test.com
+    - www.xyz.test.com
 logging:
     file:
-        name: my.log
+        name: test.log
+server:
+    port: 8080
+
+---
+
+spring:
+    config:
+        activate:
+            on-profile: prod
+name: prod-YAML
+environment: production
+enabled: true
+servers:
+    - www.abc.com
+    - www.xyz.com
+logging:
+    file:
+        name: prod.log
 server:
     port: 8080
 

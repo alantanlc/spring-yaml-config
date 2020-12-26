@@ -1,6 +1,9 @@
+package hello;
+
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -19,9 +22,13 @@ import org.apache.logging.log4j.LogManager;
 // added Tomcat and Spring MVC, the auto-configuration assumes that you are developing a web application and sets up
 // Spring accordingly.
 @EnableAutoConfiguration
-public class Application {
+@SpringBootApplication
+public class Application implements CommandLineRunner {
 
     Logger logger = LogManager.getLogger("Application");
+
+    @Autowired
+    private YAMLConfig myConfig;
 
     // The @RequestMapping annotation provides "routing" information. It tells Spring that any HTTP request 
     // with the `/` path should be mapped to the `home` method. The @RestController annotation tells Spring 
@@ -41,7 +48,16 @@ public class Application {
     // which is the primary Spring component. The `args` array is also passed through to expose any 
     // command-line arguments.
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        // SpringApplication.run(Application.class, args);
+        SpringApplication app = new SpringApplication(Application.class);
+        app.run();
+    }
+
+    public void run(String... args) throws Exception {
+        logger.info("using environment: {}",myConfig.getEnvironment()); 
+        logger.info("name: {}", myConfig.getName());
+        logger.info("enabled: {}", myConfig.isEnabled());
+        logger.info("servers: {}", myConfig.getServers());
     }
 
 }
